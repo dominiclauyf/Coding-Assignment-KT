@@ -1,0 +1,54 @@
+{% extends "inventory_base.html" %}
+
+{% block subcontent %}
+<script>
+    let get_result = () => {
+        search = document.getElementById('search')?.value
+
+        axios.get('{% url "all:inventory-list" %}', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            params: { "search": search ? search : null }
+        }).then(function (response) {
+            data = response.data
+            if (data.count === 0) {
+                result = '<div class="row"><div class="col-12"><h2>Nothing Found</h2></div></div>'
+            }
+            else {
+                result = '<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">'
+                for (key in data.results) {
+                    availability_html = data.results[key]['availability'] ? '<small class="text-success">Available</small>' : '<small class="text-danger">Not Available</small>'
+
+                    result += '<div class="col"><div class="card shadow-sm"><div class="card-body"><p class="card-text">' + data.results[key]["name"] + '</p><p class="card-text">' + data.results[key]['supplier_name'] + '</p ><div class="d-flex justify-content-between align-items-center"><div class="btn-group"><a href="{% url "inventory_list_view" %}' + data.results[key]["id"] + '" type="button" class="btn btn-sm btn-outline-secondary">View</a><button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></div>' + availability_html + '</div></div></div></div> '
+                }
+                result += '</div>'
+            }
+            document.getElementById("result").innerHTML = result
+
+        })
+    }
+
+    get_result()
+
+
+</script>
+
+<div class="album">
+    <div class="container">
+        <form onsubmit="get_result();return false">
+            <div class="form-group">
+                <!-- TODO More filter can be apply here -->
+                <label for="exampleFormControlInput1">Search</label>
+                <input type="search" class="form-control" id="search" placeholder="inventory name/description/note">
+            </div>
+        </form>
+        <br>
+        <div class="" id="result"></div>
+    </div>
+
+</div>
+
+
+
+{% endblock subcontent %}

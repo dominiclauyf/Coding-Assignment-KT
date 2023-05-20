@@ -1,0 +1,24 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "<=4.2"
+django-oauth-toolkit = "*"
+djangorestframework = "*"
+django-filter = "*"
+django-model-utils = "*"
+python-decouple = "*"
+psycopg2-binary = "*"
+pillow = "*"
+django-redis = "*"
+
+[dev-packages]
+factory-boy = "*"
+exrex = "*"
+black = "*"
+freezegun = "*"
+
+[requires]
+python_version = "3.10"

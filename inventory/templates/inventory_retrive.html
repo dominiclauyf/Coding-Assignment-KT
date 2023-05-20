@@ -1,0 +1,21 @@
+{% extends "inventory_base.html" %}
+
+{% block subcontent %}
+<script>
+    axios.get('{% url "all:inventory-list" %}' + '{{inventory_id}}', document.querySelector('#my-form'), {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(function (response) {
+        data = response.data
+        console.log(data)
+        result = '<div class="col"><div class="card shadow-sm"><img class="img-thumbnail" src="' + data.img + '"><div class="card-body"><p class="card-text"><table><tr><td>ID</td><td>' + data.id + ' </td></tr><tr><td>Name</td><td>' + data.name + '</td></tr><tr><td>Description</td><td>' + data.description + '</td></tr><tr><td>Note</td><td>' + data.note + '</td></tr><tr><td>Stock</td><td>' + data.stock + '</td></tr><tr><td>Availability</td><td>' + data.availability + '</td></tr><tr><td>Supplier</td><td>' + data.supplier + '-' + data.supplier_name + '</td></tr><tr><td>Created</td><td>' + new Date(data.created).toString() + '</td></tr><tr><td>Modified</td><td>' + new Date(data.modified).toString() + '</td></tr></table></p></div></div></div > '
+
+        document.getElementById("result").innerHTML = result
+
+    })
+
+</script>
+<div class="" id="result"></div>
+
+{% endblock subcontent %}

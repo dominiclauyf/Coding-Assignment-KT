@@ -1,0 +1,29 @@
+# NOTE: This docker-compose.yml file is meant for development use, not for production
+
+version: '3'
+
+services:
+  postgres:
+    image: postgres:12-alpine
+    environment:
+      POSTGRES_DB: ${DB_HOST:-kiratect}
+      POSTGRES_USER: ${DB_USER:-kiratect}
+      POSTGRES_PASSWORD: ${DB_PASS:-kiratect}
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:5-alpine
+
+  django:
+    build: .
+    volumes:
+      - .:/main
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: "postgres"
+      DB_PASS: ${DB_PASS:-kiratect}
+      REDIS_URL: "redis://redis"
