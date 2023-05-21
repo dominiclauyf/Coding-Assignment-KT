@@ -7,7 +7,7 @@ from django.db import migrations
 
 
 def create_dummy_data(apps, schema_editor):
-    User = apps.get_model("auth", "User")
+    User = apps.get_model("user", "User")
     Inventory = apps.get_model("inventory", "Inventory")
     Supplier = apps.get_model("supplier", "Supplier")
 
@@ -33,7 +33,7 @@ def revert_create_dummy_data(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("inventory", "0002_inventory_inventory_inventory_availability_check"),
+        ("inventory", "0001_initial"),
         ("supplier", "0001_initial"),
     ]
 
