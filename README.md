@@ -5,18 +5,22 @@ You need to have Docker and Docker Compose. Git clone this project and enter its
 ```bash
 cp dev-example.env .env
 docker-compose up
-docker exec -it [django container name|django] bash
 
+# Open a new terminal
+docker exec -it [django container name|coding-assignment-kt-django-1] bash
 pipenv run ./manage.py makemigrations
 pipenv run ./manage.py migrate
-
 ```
 You may need to run `docker-compose` with `sudo` if your user account does not have permission to use Docker directly.
 
-## To access all the page
-Currently there is no login and logout page, use django admin page to login
+### To access all the page
+Currently there is no login and logout page, use django admin page to login.
 
+Do notice that there is dummy data created on migrations.
 
+Dummy superuser:
+- Username: superuser
+- Pass: same as above
 ---
 ## Pre-commit setup
 
